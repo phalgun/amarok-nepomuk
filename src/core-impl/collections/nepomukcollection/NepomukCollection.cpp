@@ -1,5 +1,5 @@
 /****************************************************************************************
- * Copyright (c) 2012 Phalgun Guduthur <me@phalgun.in>
+ * Copyright (c) 2012 Phalgun Guduthur <me@phalgun.in>                                  *
  *                                                                                      *
  * This program is free software; you can redistribute it and/or modify it under        *
  * the terms of the GNU General Public License as published by the Free Software        *
@@ -13,7 +13,6 @@
  * You should have received a copy of the GNU General Public License along with         *
  * this program.  If not, see <http://www.gnu.org/licenses/>.                           *
  ****************************************************************************************/
-
 #include "NepomukCollection.h"
 #include "core/collections/QueryMaker.h"
 
@@ -75,12 +74,12 @@ QString NepomukCollection::collectionId() const
 
 QString NepomukCollection::prettyName() const
 {
-    return "Nepomuk Collection";
+    return i18n("Nepomuk Collection");
 }
 
 KIcon NepomukCollection::icon() const
 {
-    return KIcon();
+    return KIcon("nepomuk");
 }
 
 bool NepomukCollection::isWritable() const
@@ -89,7 +88,4 @@ bool NepomukCollection::isWritable() const
     // A check for nepomuk initialized will suffice
 
     return Nepomuk::ResourceManager::instance()->initialized();
-
 }
-
-

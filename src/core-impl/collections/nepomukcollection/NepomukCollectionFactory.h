@@ -14,34 +14,20 @@
  * this program.  If not, see <http://www.gnu.org/licenses/>.                           *
  ****************************************************************************************/
 
-#ifndef NEPOMUKCOLLECTION_H
-#define NEPOMUKCOLLECTION_H
+#ifndef NEPOMUKCOLLECTIONFACTORY_H
+#define NEPOMUKCOLLECTIONFACTORY_H
 
 #include "core/collections/Collection.h"
 
-
-class NepomukCollection : public Collections::Collection
+class NepomukCollectionFactory : public Collections::CollectionFactory
 {
     Q_OBJECT
 
-    NepomukCollection();
-    virtual ~NepomukCollection();
+    NepomukCollectionFactory() {}
+    virtual ~NepomukCollectionFactory() {}
 
-    virtual Collections::QueryMaker * queryMaker();
-
-    virtual bool isDirInCollection(const QString &path) { Q_UNUSED( path ); return false; }
-
-    virtual QString uidUrlProtocol() const;
-
-    // unsure if this is really needed.
-    virtual QString collectionId() const = 0;
-
-    virtual QString prettyName() const = 0;
-
-    virtual KIcon icon() const = 0;
-
-    virtual bool isWritable() const;
+    virtual void init();
 
 };
 
-#endif // NEPOMUKCOLLECTION_H
+#endif // NEPOMUKCOLLECTIONFACTORY_H

@@ -14,34 +14,29 @@
  * this program.  If not, see <http://www.gnu.org/licenses/>.                           *
  ****************************************************************************************/
 
-#ifndef NEPOMUKCOLLECTION_H
-#define NEPOMUKCOLLECTION_H
+#include <Nepomuk/ResourceManager>
 
-#include "core/collections/Collection.h"
+#include "NepomukCollection.h"
 
-
-class NepomukCollection : public Collections::Collection
+void NepomukCollectionFactory::init()
 {
-    Q_OBJECT
+    // check if Nepomuk service is already initialized
+    if ( Nepomuk::ResourceManager::instance()->initialized() )
+    {
+        emit newCollection( new NepomukCollection() );
+    }
 
-    NepomukCollection();
-    virtual ~NepomukCollection();
+    else
+    {
+        // Nepomuk not initialized, so initiate it
+        if ( Nepomuk::ResourceManager::instance()->init() )
+        {
+            emit newCollection( new NepomukCollection() );
+        }
 
-    virtual Collections::QueryMaker * queryMaker();
-
-    virtual bool isDirInCollection(const QString &path) { Q_UNUSED( path ); return false; }
-
-    virtual QString uidUrlProtocol() const;
-
-    // unsure if this is really needed.
-    virtual QString collectionId() const = 0;
-
-    virtual QString prettyName() const = 0;
-
-    virtual KIcon icon() const = 0;
-
-    virtual bool isWritable() const;
-
-};
-
-#endif // NEPOMUKCOLLECTION_H
+        else
+        {
+            warning() << "Nepomuk is not running, might not be enabled." << endl;
+        }
+    }
+}
