@@ -8,14 +8,17 @@ include_directories( ../..
 ########### next target ###############
 
 set(amarok_collection-nepomukcollection_PART_SRCS
-   NepomukCollection.cpp
-   NepomukCollectionFactory.cpp
+    NepomukQueryMaker.cpp
+    NepomukCollection.cpp
+    NepomukCollectionFactory.cpp
 )
+
 kde4_add_plugin(amarok_collection-nepomukcollection ${amarok_collection-nepomukcollection_PART_SRCS})
 
 target_link_libraries(amarok_collection-nepomukcollection
     amarokcore
     amaroklib
+    ${KDE4_THREADWEAVER_LIBRARIES}
     ${NEPOMUK_LIBRARIES}
 )
 

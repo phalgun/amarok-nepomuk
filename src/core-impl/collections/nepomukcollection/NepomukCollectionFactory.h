@@ -18,13 +18,16 @@
 #define NEPOMUKCOLLECTIONFACTORY_H
 
 #include "core/collections/Collection.h"
+#include "NepomukCollection.h"
+
+class NepomukCollection;
 
 class NepomukCollectionFactory : public Collections::CollectionFactory
 {
     Q_OBJECT
-
-    NepomukCollectionFactory() {}
-    virtual ~NepomukCollectionFactory() {}
+public:
+    NepomukCollectionFactory(QObject *parent, const QVariantList &args);
+    virtual ~NepomukCollectionFactory();
 
     virtual void init();
 

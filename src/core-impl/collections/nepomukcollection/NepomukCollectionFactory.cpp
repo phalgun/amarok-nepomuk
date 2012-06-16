@@ -16,14 +16,15 @@
 
 #include <Nepomuk/ResourceManager>
 
-#include "NepomukCollection.h"
+#include "NepomukCollectionFactory.h"
 
-void NepomukCollectionFactory::init()
+void
+NepomukCollectionFactory::init()
 {
     // check if Nepomuk service is already initialized
     if ( Nepomuk::ResourceManager::instance()->initialized() )
     {
-        emit newCollection( new NepomukCollection() );
+
     }
 
     else
@@ -31,12 +32,24 @@ void NepomukCollectionFactory::init()
         // Nepomuk not initialized, so initiate it
         if ( Nepomuk::ResourceManager::instance()->init() )
         {
-            emit newCollection( new NepomukCollection() );
+
         }
 
         else
         {
-            warning() << "Nepomuk is not running, might not be enabled." << endl;
+            //TODO:
+            // Generate appropriate warning since Nepomuk not found/enabled
         }
     }
+}
+
+NepomukCollectionFactory::NepomukCollectionFactory( QObject *parent, const QVariantList &args )
+ : CollectionFactory( parent, args)
+{
+
+}
+
+NepomukCollectionFactory::~NepomukCollectionFactory()
+{
+
 }

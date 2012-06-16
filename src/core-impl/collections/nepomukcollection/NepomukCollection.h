@@ -1,4 +1,5 @@
 /****************************************************************************************
+ * Copyright (c) 2008 Daniel Winter <dw@danielwinter.de>                                *
  * Copyright (c) 2012 Phalgun Guduthur <me@phalgun.in>                                  *
  *                                                                                      *
  * This program is free software; you can redistribute it and/or modify it under        *
@@ -19,15 +20,20 @@
 
 #include "core/collections/Collection.h"
 
+#include <QString>
+#include <QStringList>
+#include <QHash>
+
+#include <KIcon>
 
 class NepomukCollection : public Collections::Collection
 {
-    Q_OBJECT
 
+public:
     NepomukCollection();
     virtual ~NepomukCollection();
 
-    virtual Collections::QueryMaker * queryMaker();
+    virtual Collections::QueryMaker* queryMaker();
 
     virtual bool isDirInCollection(const QString &path) { Q_UNUSED( path ); return false; }
 

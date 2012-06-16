@@ -28,7 +28,6 @@
 #include <Soprano/Model>
 #include <Soprano/QueryResultIterator>
 
-using namespace Collections;
 
 NepomukQueryMaker::NepomukQueryMaker(NepomukCollection *collection)
     : QueryMaker()

@@ -22,10 +22,9 @@
 #include "core/collections/QueryMaker.h"
 
 class NepomukCollection;
+class NepomukCollectionFactory;
 
-namespace Collections {
-
-class NepomukQueryMaker : public QueryMaker
+class NepomukQueryMaker : public Collections::QueryMaker
 {
     Q_OBJECT
 
@@ -90,5 +89,5 @@ private:
 
 };
 
-} // namespace
+
 #endif // NEPOMUKQUERYMAKER_H

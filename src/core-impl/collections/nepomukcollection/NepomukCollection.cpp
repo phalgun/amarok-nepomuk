@@ -1,4 +1,5 @@
 /****************************************************************************************
+ * Copyright (c) 2008 Daniel Winter <dw@danielwinter.de>                                *
  * Copyright (c) 2012 Phalgun Guduthur <me@phalgun.in>                                  *
  *                                                                                      *
  * This program is free software; you can redistribute it and/or modify it under        *
@@ -13,35 +14,18 @@
  * You should have received a copy of the GNU General Public License along with         *
  * this program.  If not, see <http://www.gnu.org/licenses/>.                           *
  ****************************************************************************************/
+
 #include "NepomukCollection.h"
-#include "core/collections/QueryMaker.h"
+#include "NepomukQueryMaker.h"
 
 #include <Nepomuk/ResourceManager>
+#include <KIcon>
 
-void NepomukCollectionFactory::init()
-{
-    // check if Nepomuk service is already initialized
-    if ( Nepomuk::ResourceManager::instance()->initialized() )
-    {
-        emit newCollection( new NepomukCollection() );
-    }
+#include "core/collections/QueryMaker.h"
 
-    else
-    {
-        // Nepomuk not initialized, so initiate it
-        if ( Nepomuk::ResourceManager::instance()->init() )
-        {
-            emit newCollection( new NepomukCollection() );
-        }
-
-        else
-        {
-            // Nepomuk is probably not enabled.
-            // TODO :
-            // send out appropriate warning to user
-        }
-    }
-}
+#include <QHash>
+#include <QString>
+#include <QTime>
 
 NepomukCollection::NepomukCollection()
 {
@@ -55,10 +39,7 @@ NepomukCollection::~NepomukCollection()
 
 Collections::QueryMaker * NepomukCollection::queryMaker()
 {
-    // return generic QueryMaker as of now
-    // TODO :
-    // change to NepomukQueryMaker after it is implemented
-    return new queryMaker();
+    return new NepomukQueryMaker(this);
 }
 
 QString NepomukCollection::uidUrlProtocol() const
@@ -89,3 +70,5 @@ bool NepomukCollection::isWritable() const
 
     return Nepomuk::ResourceManager::instance()->initialized();
 }
+
+#include "NepomukCollection.moc"
