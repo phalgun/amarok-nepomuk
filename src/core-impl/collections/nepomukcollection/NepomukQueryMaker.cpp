@@ -15,19 +15,17 @@
  * this program.  If not, see <http://www.gnu.org/licenses/>.                           *
  ****************************************************************************************/
 
-#define DEBUG_PREFIX "NepomukCollection"
-
 #include "NepomukQueryMaker.h"
+#include "core/collections/Collection.h"
+#include "core/meta/Meta.h"
 
 // Nepomuk includes
 #include <Nepomuk/Query/QueryServiceClient>
 #include <Nepomuk/Vocabulary/NMM>
 
-
 // Soprano includes
 #include <Soprano/Model>
 #include <Soprano/QueryResultIterator>
-
 
 NepomukQueryMaker::NepomukQueryMaker(NepomukCollection *collection)
     : QueryMaker()
@@ -42,206 +40,129 @@ NepomukQueryMaker::~NepomukQueryMaker()
 }
 
 void
+NepomukQueryMaker::abortQuery()
+{
+
+}
+
+void
 NepomukQueryMaker::run()
 {
 
 }
 
-QueryMaker*
+Collections::QueryMaker*
 NepomukQueryMaker::setQueryType(QueryType type)
 {
     return this;
 }
 
-QueryMaker*
+Collections::QueryMaker*
 NepomukQueryMaker::addReturnValue(qint64 value)
 {
     return this;
 }
 
-QueryMaker*
+Collections::QueryMaker*
 NepomukQueryMaker::addReturnFunction(ReturnFunction function, qint64 value)
 {
     return this;
 }
 
-QueryMaker*
+Collections::QueryMaker*
 NepomukQueryMaker::orderBy(qint64 value, bool descending)
 {
     return this;
 }
 
-QueryMaker*
+Collections::QueryMaker*
 NepomukQueryMaker::addMatch(const Meta::TrackPtr &track)
 {
     return this;
 }
 
-QueryMaker*
+Collections::QueryMaker*
 NepomukQueryMaker::addMatch(const Meta::ArtistPtr &artist)
 {
     return this;
 }
 
-QueryMaker*
+Collections::QueryMaker*
 NepomukQueryMaker::addMatch(const Meta::AlbumPtr &album)
 {
     return this;
 }
 
-QueryMaker*
+Collections::QueryMaker*
 NepomukQueryMaker::addMatch(const Meta::ComposerPtr &composer)
 {
     return this;
 }
 
-QueryMaker*
+Collections::QueryMaker*
 NepomukQueryMaker::addMatch(const Meta::GenrePtr &genre)
 {
     return this;
 }
 
-QueryMaker*
+Collections::QueryMaker*
 NepomukQueryMaker::addMatch(const Meta::YearPtr &year)
 {
     return this;
 }
 
-QueryMaker*
+Collections::QueryMaker*
 NepomukQueryMaker::addMatch(const Meta::LabelPtr &label)
 {
     return this;
 }
 
-QueryMaker*
+Collections::QueryMaker*
 NepomukQueryMaker::addFilter(qint64 value, const QString &filter, bool matchBegin, bool matchEnd)
 {
     return this;
 }
 
-QueryMaker*
+Collections::QueryMaker*
 NepomukQueryMaker::excludeFilter(qint64 value, const QString &filter, bool matchBegin, bool matchEnd)
 {
     return this;
 }
 
-QueryMaker*
+Collections::QueryMaker*
+NepomukQueryMaker::addNumberFilter(qint64 value, qint64 filter, NumberComparison compare)
+{
+    return this;
+}
+
+Collections::QueryMaker*
 NepomukQueryMaker::excludeNumberFilter(qint64 value, qint64 filter, NumberComparison compare)
 {
     return this;
 }
 
-QueryMaker*
+
+Collections::QueryMaker*
 NepomukQueryMaker::limitMaxResultSize(int size)
 {
     return this;
 }
 
-QueryMaker*
-NepomukQueryMaker::setAlbumQueryMode(AlbumQueryMode mode)
-{
-    return this;
-}
-
-QueryMaker*
-NepomukQueryMaker::setArtistQueryMode(ArtistQueryMode mode)
-{
-    return this;
-}
-
-QueryMaker*
-NepomukQueryMaker::setLabelQueryMode(LabelQueryMode mode)
-{
-    return this;
-}
-
-QueryMaker*
+Collections::QueryMaker*
 NepomukQueryMaker::beginAnd()
 {
     return this;
 }
 
-QueryMaker*
+Collections::QueryMaker*
 NepomukQueryMaker::beginOr()
 {
     return this;
 }
 
-QueryMaker*
+Collections::QueryMaker*
 NepomukQueryMaker::endAndOr()
 {
     return this;
-}
-
-QueryMaker*
-NepomukQueryMaker::setAutoDelete(bool autoDelete)
-{
-    return this;
-}
-
-int
-NepomukQueryMaker::validFilterMask()
-{
-    return 0;
-}
-
-void
-NepomukQueryMaker::newResultReady(Meta::TrackList)
-{
-
-}
-
-void
-NepomukQueryMaker::newResultReady(Meta::ArtistList)
-{
-
-}
-
-void
-NepomukQueryMaker::newResultReady(Meta::AlbumList)
-{
-
-}
-
-void
-NepomukQueryMaker::newResultReady(Meta::GenreList)
-{
-
-}
-
-void
-NepomukQueryMaker::newResultReady(Meta::ComposerList)
-{
-
-}
-
-void
-NepomukQueryMaker::newResultReady(Meta::YearList)
-{
-
-}
-
-void
-NepomukQueryMaker::newResultReady(QStringList)
-{
-
-}
-
-void
-NepomukQueryMaker::newResultReady(Meta::LabelList)
-{
-
-}
-
-void
-NepomukQueryMaker::newResultReady(Meta::DataList)
-{
-
-}
-
-void
-NepomukQueryMaker::queryDone()
-{
-
 }
 

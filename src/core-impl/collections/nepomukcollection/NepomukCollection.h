@@ -23,7 +23,6 @@
 #include <QString>
 #include <QStringList>
 #include <QHash>
-
 #include <KIcon>
 
 class NepomukCollection : public Collections::Collection
@@ -40,11 +39,11 @@ public:
     virtual QString uidUrlProtocol() const;
 
     // unsure if this is really needed.
-    virtual QString collectionId() const = 0;
+    virtual QString collectionId() const;
 
-    virtual QString prettyName() const = 0;
+    virtual QString prettyName() const;
 
-    virtual KIcon icon() const = 0;
+    virtual KIcon icon() const;
 
     virtual bool isWritable() const;
 

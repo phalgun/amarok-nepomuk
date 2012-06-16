@@ -17,15 +17,14 @@
 
 #include "NepomukCollection.h"
 #include "NepomukQueryMaker.h"
+#include "core/collections/QueryMaker.h"
 
 #include <Nepomuk/ResourceManager>
 #include <KIcon>
-
-#include "core/collections/QueryMaker.h"
-
-#include <QHash>
 #include <QString>
-#include <QTime>
+#include <QObject>
+#include <QtGlobal>
+#include <QStringList>
 
 NepomukCollection::NepomukCollection()
 {
@@ -55,7 +54,7 @@ QString NepomukCollection::collectionId() const
 
 QString NepomukCollection::prettyName() const
 {
-    return i18n("Nepomuk Collection");
+    return QString("nepomuk");
 }
 
 KIcon NepomukCollection::icon() const
@@ -70,5 +69,3 @@ bool NepomukCollection::isWritable() const
 
     return Nepomuk::ResourceManager::instance()->initialized();
 }
-
-#include "NepomukCollection.moc"

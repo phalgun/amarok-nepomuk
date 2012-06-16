@@ -19,7 +19,10 @@
 #ifndef NEPOMUKQUERYMAKER_H
 #define NEPOMUKQUERYMAKER_H
 
-#include "core/collections/QueryMaker.h"
+#include "core/collections/Collection.h"
+#include "core/meta/Meta.h"
+
+using namespace Meta;
 
 class NepomukCollection;
 class NepomukCollectionFactory;
@@ -36,53 +39,34 @@ public:
 
     virtual void run();
 
-    virtual QueryMaker* setQueryType( QueryType type );
+    virtual Collections::QueryMaker* setQueryType( QueryType type );
 
-    virtual QueryMaker* addReturnValue( qint64 value );
-    virtual QueryMaker* addReturnFunction( ReturnFunction function, qint64 value );
+    virtual Collections::QueryMaker* addReturnValue( qint64 value );
+    virtual Collections::QueryMaker* addReturnFunction( ReturnFunction function, qint64 value );
 
-    virtual QueryMaker* orderBy( qint64 value, bool descending = false );
+    virtual Collections::QueryMaker* orderBy( qint64 value, bool descending = false );
 
-    virtual QueryMaker* addMatch( const Meta::TrackPtr &track );
-    virtual QueryMaker* addMatch( const Meta::ArtistPtr &artist );
-    virtual QueryMaker* addMatch( const Meta::AlbumPtr &album );
-    virtual QueryMaker* addMatch( const Meta::ComposerPtr &composer );
-    virtual QueryMaker* addMatch( const Meta::GenrePtr &genre );
-    virtual QueryMaker* addMatch( const Meta::YearPtr &year );
-    virtual QueryMaker* addMatch( const Meta::LabelPtr &label );
+    virtual Collections::QueryMaker* addMatch( const Meta::TrackPtr &track );
+    virtual Collections::QueryMaker* addMatch( const Meta::ArtistPtr &artist );
+    virtual Collections::QueryMaker* addMatch( const Meta::AlbumPtr &album );
+    virtual Collections::QueryMaker* addMatch( const Meta::ComposerPtr &composer );
+    virtual Collections::QueryMaker* addMatch( const Meta::GenrePtr &genre );
+    virtual Collections::QueryMaker* addMatch( const Meta::YearPtr &year );
+    virtual Collections::QueryMaker* addMatch( const Meta::LabelPtr &label );
 
-    virtual QueryMaker* addFilter( qint64 value, const QString &filter, bool matchBegin = false, bool matchEnd = false );
-    virtual QueryMaker* excludeFilter( qint64 value, const QString &filter, bool matchBegin = false, bool matchEnd = false );
+    virtual Collections::QueryMaker* addFilter( qint64 value, const QString &filter, bool matchBegin = false, bool matchEnd = false );
+    virtual Collections::QueryMaker* excludeFilter( qint64 value, const QString &filter, bool matchBegin = false, bool matchEnd = false );
 
-    virtual QueryMaker* addNumberFilter( qint64 value, qint64 filter, NumberComparison compare );
-    virtual QueryMaker* excludeNumberFilter( qint64 value, qint64 filter, NumberComparison compare );
+    virtual Collections::QueryMaker* addNumberFilter( qint64 value, qint64 filter, NumberComparison compare );
+    virtual Collections::QueryMaker* excludeNumberFilter( qint64 value, qint64 filter, NumberComparison compare );
 
-    virtual QueryMaker* limitMaxResultSize( int size );
+    virtual Collections::QueryMaker* limitMaxResultSize( int size );
 
-    virtual QueryMaker* setAlbumQueryMode( AlbumQueryMode mode );
-    virtual QueryMaker* setArtistQueryMode( ArtistQueryMode mode );
-    virtual QueryMaker* setLabelQueryMode( LabelQueryMode mode );
+    virtual Collections::QueryMaker* beginAnd();
+    virtual Collections::QueryMaker* beginOr();
+    virtual Collections::QueryMaker* endAndOr();
 
-    virtual QueryMaker* beginAnd();
-    virtual QueryMaker* beginOr();
-    virtual QueryMaker* endAndOr();
-
-    QueryMaker* setAutoDelete( bool autoDelete );
-    virtual int validFilterMask();
-
-signals:
-
-    void newResultReady( Meta::TrackList );
-    void newResultReady( Meta::ArtistList );
-    void newResultReady( Meta::AlbumList );
-    void newResultReady( Meta::GenreList );
-    void newResultReady( Meta::ComposerList );
-    void newResultReady( Meta::YearList );
-    void newResultReady( QStringList );
-    void newResultReady( Meta::LabelList );
-    void newResultReady( Meta::DataList );
-
-    void queryDone();
+    Collections::QueryMaker* setAutoDelete( bool autoDelete );
 
 private:
     NepomukCollection *m_collection;
