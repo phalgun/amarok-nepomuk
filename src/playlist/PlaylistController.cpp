@@ -128,7 +128,7 @@ Playlist::Controller::insertOptioned( Meta::TrackList list, int options )
     }
 
     int topModelInsertRow;
-    int visibleInsertedRowCount = m_topModel->qaim()->rowCount();  // initialise with old count
+    int visibleInsertedRowCount;
     if( options & Replace )
     {
         debug()<<"Replace";
@@ -140,8 +140,9 @@ Playlist::Controller::insertOptioned( Meta::TrackList list, int options )
         //make sure that we turn off dynamic mode.
         Amarok::actionCollection()->action( "disable_dynamic" )->trigger();
 
-        topModelInsertRow = 0;
-        insertionHelper( insertionTopRowToBottom( topModelInsertRow ), list );
+        int bottomModelInsertRow = insertionTopRowToBottom( 0 );
+        insertionHelper( bottomModelInsertRow, list );
+        topModelInsertRow = m_topModel->rowFromBottomModel( bottomModelInsertRow );
         m_undoStack->endMacro();
         visibleInsertedRowCount = m_topModel->qaim()->rowCount(); // simple
     }
@@ -149,6 +150,7 @@ Playlist::Controller::insertOptioned( Meta::TrackList list, int options )
     {
         debug()<<"Queue";
 
+        int oldVisibleRowCount = m_topModel->qaim()->rowCount();
         topModelInsertRow = m_topModel->activeRow() + 1;
 
         while( m_topModel->queuePositionOfRow( topModelInsertRow ) )
@@ -156,7 +158,8 @@ Playlist::Controller::insertOptioned( Meta::TrackList list, int options )
 
         int bottomModelInsertRow = insertionTopRowToBottom( topModelInsertRow );
         insertionHelper( bottomModelInsertRow, list );
-        visibleInsertedRowCount = m_topModel->qaim()->rowCount() - visibleInsertedRowCount;
+        topModelInsertRow = m_topModel->rowFromBottomModel( bottomModelInsertRow );
+        visibleInsertedRowCount = m_topModel->qaim()->rowCount() - oldVisibleRowCount;
 
         // Construct list of rows to be queued
         QList<int> topModelRows;
@@ -172,9 +175,14 @@ Playlist::Controller::insertOptioned( Meta::TrackList list, int options )
     else
     {
         debug()<<"Append";
+
+        int oldVisibleRowCount = m_topModel->qaim()->rowCount();
         topModelInsertRow = m_topModel->qaim()->rowCount();
-        insertionHelper( insertionTopRowToBottom( topModelInsertRow ), list );
-        visibleInsertedRowCount = m_topModel->qaim()->rowCount() - visibleInsertedRowCount;
+
+        int bottomModelInsertRow = insertionTopRowToBottom( topModelInsertRow );
+        insertionHelper( bottomModelInsertRow, list );
+        topModelInsertRow = m_topModel->rowFromBottomModel( bottomModelInsertRow );
+        visibleInsertedRowCount = m_topModel->qaim()->rowCount() - oldVisibleRowCount;
     }
 
     debug() << "engine playing?: " << The::engineController()->isPlaying();

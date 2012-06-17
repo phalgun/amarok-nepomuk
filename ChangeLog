@@ -8,11 +8,17 @@ VERSION 2.6
       argument.
 
   BUGFIXES:
+    * Fix inconsistent Last.fm scrobbling in some cases with GStreamer
+      backend.
     * Use colors from KDE style in Dynamic Playlist strip. (BR 301303)
     * Finally fix crash on startup in addCollapseAnimation. (BR 258741)
     * Don't hit "too many open files" when copying covers to iPod. (BR 301207)
     * Don't crash if iPod's eject button is hit twice. (BR 301208)
     * Don't crash even if the iPod is connected and quickly ejected. (BR 301166)
+    * Play the correct track when adding tracks to a sorted playlist. (BR
+      244595)
+    * Provide full-size covers via MPRIS1 if available. (BR 278550)
+    * Fix serving out of embedded images via MPRIS. (BR 301399)
 
 VERSION 2.6-Beta 1
   FEATURES:
