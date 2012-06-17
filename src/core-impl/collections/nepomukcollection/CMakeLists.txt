@@ -20,6 +20,8 @@ target_link_libraries(amarok_collection-nepomukcollection
     amaroklib
     ${KDE4_THREADWEAVER_LIBRARIES}
     ${NEPOMUK_LIBRARIES}
+    ${KDE4_KDEUI_LIBS}
+    ${KDE4_KDECORE_LIBS}
 )
 
 install(TARGETS amarok_collection-nepomukcollection DESTINATION ${PLUGIN_INSTALL_DIR} )

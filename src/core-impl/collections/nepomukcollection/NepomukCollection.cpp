@@ -22,9 +22,6 @@
 #include <Nepomuk/ResourceManager>
 #include <KIcon>
 #include <QString>
-#include <QObject>
-#include <QtGlobal>
-#include <QStringList>
 
 NepomukCollection::NepomukCollection()
 {
