@@ -47,6 +47,8 @@ public:
 
     virtual bool isWritable() const;
 
+private:
+    bool m_nepomukCollectionReady;
 };
 
 #endif // NEPOMUKCOLLECTION_H

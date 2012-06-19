@@ -25,7 +25,8 @@
 
 NepomukCollection::NepomukCollection()
 {
-
+    if(Nepomuk::ResourceManager::instance()->initialized())
+        m_nepomukCollectionReady = true;
 }
 
 NepomukCollection::~NepomukCollection()
@@ -64,5 +65,5 @@ bool NepomukCollection::isWritable() const
     // Nepomuk if initialized is always writable
     // A check for nepomuk initialized will suffice
 
-    return Nepomuk::ResourceManager::instance()->initialized();
+    return m_nepomukCollectionReady;
 }

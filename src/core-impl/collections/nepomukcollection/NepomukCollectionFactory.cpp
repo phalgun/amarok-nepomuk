@@ -24,7 +24,8 @@ NepomukCollectionFactory::init()
     // check if Nepomuk service is already initialized
     if ( Nepomuk::ResourceManager::instance()->initialized() )
     {
-
+        emit newCollection( new NepomukCollection() );
+        m_initialized = true;
     }
 
     else
@@ -32,7 +33,8 @@ NepomukCollectionFactory::init()
         // Nepomuk not initialized, so initiate it
         if ( Nepomuk::ResourceManager::instance()->init() )
         {
-
+            emit newCollection( new NepomukCollection() );
+            m_initialized = true;
         }
 
         else
@@ -46,7 +48,7 @@ NepomukCollectionFactory::init()
 NepomukCollectionFactory::NepomukCollectionFactory( QObject *parent, const QVariantList &args )
  : CollectionFactory( parent, args)
 {
-
+    m_info = KPluginInfo( "amarok_collection-nepomukcollection.desktop", "services" );
 }
 
 NepomukCollectionFactory::~NepomukCollectionFactory()

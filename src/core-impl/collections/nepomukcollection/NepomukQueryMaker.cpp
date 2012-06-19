@@ -18,14 +18,49 @@
 #include "NepomukQueryMaker.h"
 #include "core/collections/Collection.h"
 #include "core/meta/Meta.h"
+#include "core-impl/collections/support/MemoryFilter.h"
+#include "NepomukCollection.h"
 
 // Nepomuk includes
 #include <Nepomuk/Query/QueryServiceClient>
 #include <Nepomuk/Vocabulary/NMM>
+#include <threadweaver/Job.h>
+#include <threadweaver/ThreadWeaver.h>
 
 // Soprano includes
 #include <Soprano/Model>
 #include <Soprano/QueryResultIterator>
+
+using namespace Meta;
+
+class NepomukQueryJob : public ThreadWeaver::Job
+{
+    public:
+        NepomukQueryJob( NepomukQueryMaker *queryMaker )
+            : ThreadWeaver::Job()
+            , m_queryMaker( queryMaker )
+        {
+            //nothing to do
+        }
+
+        ~NepomukQueryJob()
+        {
+            delete m_queryMaker;
+        }
+
+    protected:
+        void run()
+        {
+            m_queryMaker->run();
+            setFinished( true );
+        }
+
+    private:
+        NepomukQueryMaker *m_queryMaker;
+};
+
+
+
 
 NepomukQueryMaker::NepomukQueryMaker(NepomukCollection *collection)
     : QueryMaker()
@@ -54,12 +89,14 @@ NepomukQueryMaker::run()
 Collections::QueryMaker*
 NepomukQueryMaker::setQueryType(QueryType type)
 {
+    m_queryType = type;
     return this;
 }
 
 Collections::QueryMaker*
 NepomukQueryMaker::addReturnValue(qint64 value)
 {
+    m_returnValue = value;
     return this;
 }
 
@@ -145,6 +182,7 @@ NepomukQueryMaker::excludeNumberFilter(qint64 value, qint64 filter, NumberCompar
 Collections::QueryMaker*
 NepomukQueryMaker::limitMaxResultSize(int size)
 {
+    m_maxsize = size;
     return this;
 }
 
@@ -166,3 +204,20 @@ NepomukQueryMaker::endAndOr()
     return this;
 }
 
+Collections::QueryMaker* NepomukQueryMaker::setAlbumQueryMode( AlbumQueryMode mode )
+{
+    m_albumQueryMode = mode;
+    return this;
+}
+
+Collections::QueryMaker* NepomukQueryMaker::setArtistQueryMode( ArtistQueryMode mode )
+{
+    m_artistQueryMode = mode;
+    return this;
+}
+
+Collections::QueryMaker* NepomukQueryMaker::setLabelQueryMode( LabelQueryMode mode )
+{
+    m_labelQueryMode = mode;
+    return this;
+}

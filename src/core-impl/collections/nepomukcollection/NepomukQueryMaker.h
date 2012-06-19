@@ -21,6 +21,10 @@
 
 #include "core/collections/Collection.h"
 #include "core/meta/Meta.h"
+#include "core-impl/collections/support/MemoryFilter.h"
+
+#include <QList>
+#include <QStack>
 
 using namespace Meta;
 
@@ -68,9 +72,23 @@ public:
 
     Collections::QueryMaker* setAutoDelete( bool autoDelete );
 
+    virtual QueryMaker* setAlbumQueryMode( AlbumQueryMode mode );
+    virtual QueryMaker* setArtistQueryMode( ArtistQueryMode mode );
+    virtual QueryMaker* setLabelQueryMode( LabelQueryMode mode );
+
+
 private:
     NepomukCollection *m_collection;
 
+    QueryType m_queryType;
+    AlbumQueryMode m_albumQueryMode;
+    ArtistQueryMode m_artistQueryMode;
+    LabelQueryMode m_labelQueryMode;
+    QStack<ContainerMemoryFilter*> m_containerFilters;
+
+    qint64 m_returnValue;
+    bool m_usingFilters;
+    int m_maxsize;
 };
 
 
