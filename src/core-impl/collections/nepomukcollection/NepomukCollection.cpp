@@ -18,6 +18,7 @@
 #include "NepomukCollection.h"
 #include "NepomukQueryMaker.h"
 #include "core/collections/QueryMaker.h"
+#include "core/support/Debug.h"
 
 #include <Nepomuk/ResourceManager>
 #include <KIcon>
@@ -25,6 +26,7 @@
 
 NepomukCollection::NepomukCollection()
 {
+    debug()<<"in nepomukcollection";
     if(Nepomuk::ResourceManager::instance()->initialized())
         m_nepomukCollectionReady = true;
 }

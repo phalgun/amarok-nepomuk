@@ -20,6 +20,7 @@
 #include "core/meta/Meta.h"
 #include "core-impl/collections/support/MemoryFilter.h"
 #include "NepomukCollection.h"
+#include "core/support/Debug.h"
 
 // Nepomuk includes
 #include <Nepomuk/Query/QueryServiceClient>
@@ -41,6 +42,7 @@ class NepomukQueryJob : public ThreadWeaver::Job
             , m_queryMaker( queryMaker )
         {
             //nothing to do
+            debug()<<"in nepomukqueryjob";
         }
 
         ~NepomukQueryJob()
@@ -66,6 +68,7 @@ NepomukQueryMaker::NepomukQueryMaker(NepomukCollection *collection)
     : QueryMaker()
     , m_collection()
 {
+    debug()<<"in nepomukquerymaker";
 
 }
 

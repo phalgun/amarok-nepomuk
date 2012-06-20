@@ -16,7 +16,9 @@
 
 #include <Nepomuk/ResourceManager>
 
+#include "core/support/Debug.h"
 #include "NepomukCollectionFactory.h"
+#include "core/support/Debug.h"
 
 void
 NepomukCollectionFactory::init()
@@ -39,6 +41,7 @@ NepomukCollectionFactory::init()
 
         else
         {
+            warning()<<"could not load nepomuk in collectionfactory";
             //TODO:
             // Generate appropriate warning since Nepomuk not found/enabled
         }
@@ -48,6 +51,7 @@ NepomukCollectionFactory::init()
 NepomukCollectionFactory::NepomukCollectionFactory( QObject *parent, const QVariantList &args )
  : CollectionFactory( parent, args)
 {
+    debug()<<"in nepomukcollectionfactory";
     m_info = KPluginInfo( "amarok_collection-nepomukcollection.desktop", "services" );
 }
 
