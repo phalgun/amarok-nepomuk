@@ -59,3 +59,5 @@ NepomukCollectionFactory::~NepomukCollectionFactory()
 {
 
 }
+
+AMAROK_EXPORT_COLLECTION( NepomukCollectionFactory, nepomukcollection )
